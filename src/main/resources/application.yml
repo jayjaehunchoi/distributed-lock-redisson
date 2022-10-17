@@ -1,0 +1,15 @@
+spring:
+  redis:
+    port: 6789
+  datasource:
+    url: jdbc:h2:mem:distributed-lock;MODE=MYSQL;DB_CLOSE_DELAY=-1
+    username: user
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true

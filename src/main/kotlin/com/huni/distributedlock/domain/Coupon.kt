@@ -10,7 +10,7 @@ class Coupon(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    val user: User,
+    var user: User? = null,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
