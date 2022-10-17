@@ -1,6 +1,5 @@
 package com.huni.distributedlock.application
 
-import com.huni.distributedlock.application.dto.CouponResponse
 import com.huni.distributedlock.domain.Coupon
 import com.huni.distributedlock.domain.UserRepository
 import org.slf4j.LoggerFactory
