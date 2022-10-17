@@ -1,6 +1,5 @@
 package com.huni.distributedlock.domain
 
-import org.springframework.data.jpa.repository.EntityGraph
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
@@ -14,5 +13,13 @@ interface UserRepository : JpaRepository<User, Long> {
              WHERE u.id = :userId 
         """
     )
-    fun findByIdWithCoupons(@Param("userId")id: Long?) : User?
+    fun findByIdWithCoupons(@Param("userId") id: Long?): User?
+
+    @Query(
+        """
+            SELECT DISTINCT u FROM User u 
+             LEFT JOIN FETCH u.coupons
+        """
+    )
+    fun findAllFetch(): List<User>
 }

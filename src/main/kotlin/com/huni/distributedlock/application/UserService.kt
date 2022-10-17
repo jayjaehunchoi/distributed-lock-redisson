@@ -15,13 +15,19 @@ class UserService(
 ) {
 
     fun addNewCoupon(userId: Long) {
-        log.info("user 조회")
+        log.info("user 조회 {}", userId)
         val user = userRepository.findByIdOrNull(userId) ?: throw IllegalArgumentException()
 
         val serial = UUID.randomUUID().toString().substring(0, 8)
         val coupon = Coupon(serial)
 
         user.addCoupon(coupon)
+    }
+
+    fun getUsers(): List<UserResponse> {
+        val users = userRepository.findAllFetch()
+        return users.map { UserResponse.from(it) }
+            .toCollection(mutableListOf())
     }
 
     companion object {

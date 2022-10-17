@@ -18,7 +18,7 @@ class User(
 ) {
 
     fun addCoupon(coupon: Coupon) {
-        require(coupons.size < MAX_COUPON_SIZE) {"최대 쿠폰 수를 초과했습니다."}
+        require(coupons.size < MAX_COUPON_SIZE) { "최대 쿠폰 수를 초과했습니다. 쿠폰 개수 = ${coupons.size}" }
         coupon.user = this
         this.coupons.add(coupon)
     }

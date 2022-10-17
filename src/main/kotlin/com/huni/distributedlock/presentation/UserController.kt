@@ -1,11 +1,11 @@
 package com.huni.distributedlock.presentation
 
 import com.huni.distributedlock.application.LockingUserService
+import com.huni.distributedlock.application.UserResponse
 import com.huni.distributedlock.application.UserService
+import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class UserController(
@@ -23,5 +23,20 @@ class UserController(
     fun createNewCouponWithLocking(@PathVariable userId: Long): ResponseEntity<Void> {
         lockingUserService.addNewCoupon(userId)
         return ResponseEntity.ok().build()
+    }
+
+    @GetMapping("/api/users")
+    fun findAll(): ResponseEntity<List<UserResponse>> {
+        return ResponseEntity.ok(userService.getUsers())
+    }
+
+    @ExceptionHandler(IllegalArgumentException::class)
+    fun handler(e: IllegalArgumentException): ResponseEntity<String> {
+        log.error("error !! {}", e.message)
+        return ResponseEntity.badRequest().body(e.message)
+    }
+
+    companion object {
+        private val log = LoggerFactory.getLogger(UserController::class.java)
     }
 }
